@@ -1,4 +1,4 @@
-import {viewLinks,searchLinks,routesTo,meters,point} from './core.mjs';
+import {viewLinks,searchLinks,routesTo,meters,point,premiumKatastrLink} from './core.mjs';
 const centers={
  pardubice:{lat:50.0383,lng:15.7792,name:'Pardubice — centrum',zoom:14},
  prague:{lat:50.0878,lng:14.4203,name:'Praha — centrum',zoom:14},
@@ -22,6 +22,11 @@ function labels(){
  $('point-coords').textContent=p.lat.toFixed(5)+', '+p.lng.toFixed(5);
  $('link-google').href=links.google;$('link-mapy').href=links.mapy;
  $('link-travel').href=links.travel;$('link-partner').href=links.partner;
+ const premiumLink=premiumKatastrLink(p,st.map?st.map.getZoom():p.zoom||15);
+ const katastr=$('link-katastr');
+ if(premiumLink){katastr.href=premiumLink;katastr.hidden=false;}
+ else{katastr.removeAttribute('href');katastr.hidden=true;}
+
  const r=routesTo(p,{mode:$('mode').value,origin:st.gps});
  $('route-google').href=r.google;$('route-mapy').href=r.mapy||'#';
  $('route-mapy').setAttribute('aria-disabled',String(!r.mapy));
@@ -60,6 +65,21 @@ function initialize(){
  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a>'}).addTo(st.map);
  st.map.on('click',e=>select(e.latlng));st.map.on('zoomend',labels);
  $('map-status').textContent='2D OSM · syntetické body';city('pardubice');
+ const params=new URLSearchParams(window.location.search);
+ if(params.has('lat')&&params.has('lng')){
+  const p={lat:Number(params.get('lat')),lng:Number(params.get('lng'))};
+  const z=Number(params.get('z'));
+  try{
+   point(p);
+   st.map.setView([p.lat,p.lng],Number.isFinite(z)&&z>=8&&z<=19?z:15);
+   select(p);
+   const option=document.createElement('option');
+   option.value='shared';option.textContent='Sdílené souřadnice';
+   $('city').append(option);$('city').value='shared';
+   $('city-description').textContent='Sdílený bod · údaje o parcele ověřte v KATASTR ONLINE';
+  }catch{$('map-status').textContent='Neplatný bod v URL; zobrazena výchozí mapa.';}
+ }
+
 }
 function gpsStop(){
  if(st.gpsWatch!==null&&navigator.geolocation)navigator.geolocation.clearWatch(st.gpsWatch);
