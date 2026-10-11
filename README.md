@@ -22,6 +22,8 @@
 - Street map from OpenStreetMap *(small development demo only; attribution and OSMF usage limits apply)*.
 - External **Google Maps** and **Mapy.com** search / navigation links; never mix providers' protected tiles.
 - Permission-based browser GPS, explicit stop, no hidden background uploads.
+- **Opt-in premium KATASTR-ONLINE.cz link** when the selected map point appears within the approximate Czech coverage box. On click it shares only latitude, longitude, zoom and referral tags with the separately run premium web app; **no cadastral reports, private code or CRM data are included or exposed**.
+- URL parameters `?lat=…&lng=…&z=…` can open a selected map point for future authorized navigation handoff; hosting the public demo and reciprocity are separate release gates.
 - **Traffic intelligence roadmap**: official or licensed traffic jams, collisions, construction, closures and travel-time reliability — **no unverified police locations**.
 - A clear public/private boundary: the private **KATASTR-ONLINE.cz** premium service and ONYX OS payments/CRM are **not part of this repository**.
 - OMNI TRAVEL public destination links are referrals, **not** confirmed purchases or revenue.

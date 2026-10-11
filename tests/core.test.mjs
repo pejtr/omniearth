@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {point,viewLinks,searchLinks,routesTo,meters,publicObservation} from '../src/core.mjs';
+import {point,viewLinks,searchLinks,routesTo,meters,publicObservation,premiumKatastrLink} from '../src/core.mjs';
 test('coordinate validation',()=>{assert.equal(point({lat:50,lng:14}).lat,50);assert.throws(()=>point({lat:95,lng:14}),/INVALID_WGS84/)});
 test('native Google and Mapy coordinate order',()=>{const v=viewLinks({lat:50.0878,lng:14.4203},90);assert.equal(new URL(v.google).searchParams.get('query'),'50.087800,14.420300');assert.equal(new URL(v.mapy).searchParams.get('center'),'14.420300,50.087800');assert.equal(new URL(v.mapy).searchParams.get('zoom'),'19')});
 test('no premium KATASTR source or paid API keys exposed in links',()=>{const v=viewLinks({lat:50,lng:14});assert.equal(Object.keys(v).includes('katastr'),false);assert.equal(v.google.includes('key='),false);assert.equal(new URL(v.travel).searchParams.get('utm_source'),'omniearth')});
@@ -9,3 +9,23 @@ test('transit only has Google link',()=>{const v=routesTo({lat:48.85,lng:2.35},{
 test('route origin is opt-in only',()=>{const v=routesTo({lat:50.04,lng:15.8},{origin:{lat:50.03,lng:15.7},mode:'walking'});assert.equal(new URL(v.google).searchParams.get('origin'),'50.030000,15.700000')});
 test('distance marked as straight line',()=>{assert.equal(meters({lat:50,lng:14},{lat:50,lng:14}),0);assert.ok(meters({lat:48.85,lng:2.3},{lat:48.86,lng:2.3})>1000)});
 test('public observations require review/redaction and reject raw imagery',()=>{const base={lat:50,lng:14,publicAuthorized:true,isRedacted:true,observedAt:'2026-10-11T00:00:00Z',provenance:'approved-dataset',type:'roadworks'};assert.equal(publicObservation(base).type,'roadworks');assert.throws(()=>publicObservation({...base,isRedacted:false}),/EVENT_NOT_PUBLIC/);assert.throws(()=>publicObservation({...base,rawVideo:'secret'}),/PERSONAL_DATA_PROHIBITED/)});
+
+test('Czech point receives opt-in premium Katastr link without exposing protected data',()=>{
+ const link=premiumKatastrLink({lat:50.0383,lng:15.7792},16);
+ const u=new URL(link);
+ assert.equal(u.origin,'https://www.katastr-online.cz');
+ assert.equal(u.pathname,'/mapa');
+ assert.equal(u.searchParams.get('lat'),'50.03830');
+ assert.equal(u.searchParams.get('lng'),'15.77920');
+ assert.equal(u.searchParams.get('z'),'16');
+ assert.equal(u.searchParams.get('utm_source'),'omniearth');
+ assert.equal(u.searchParams.has('owner'),false);
+ assert.equal(u.searchParams.has('token'),false);
+});
+test('Katastr handoff is absent outside Czech bounding box and zoom is constrained',()=>{
+ assert.equal(premiumKatastrLink({lat:48.8566,lng:2.3522},15),null);
+ assert.equal(premiumKatastrLink({lat:40,lng:14},15),null);
+ const v=new URL(premiumKatastrLink({lat:50,lng:15},900));
+ assert.equal(v.searchParams.get('z'),'19');
+ assert.throws(()=>premiumKatastrLink({lat:NaN,lng:15},15),/INVALID_WGS84/);
+});
