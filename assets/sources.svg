@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 255" role="img" aria-label="OMNIEARTH public integration diagram">
+<rect width="1200" height="255" rx="18" fill="#f5f8f8"/>
+<text x="40" y="44" font-family="Arial" font-size="23" font-weight="bold" fill="#1c3b50">OMNIEARTH+ · CONNECTED SURFACES</text>
+<g font-family="Arial" font-weight="bold" text-anchor="middle" font-size="18">
+<rect x="40" y="83" width="260" height="120" rx="12" fill="#fff" stroke="#d3e0e3"/><text x="170" y="122" fill="#27485b">MAPS &amp; GPS</text><text x="170" y="151" font-size="12" font-weight="normal" fill="#667b86">Open source UI · MIT</text>
+<rect x="340" y="83" width="260" height="120" rx="12" fill="#fff" stroke="#d3e0e3"/><text x="470" y="122" fill="#27485b">NATIVE MAPS</text><text x="470" y="151" font-size="12" font-weight="normal" fill="#667b86">Google · Mapy.com (links)</text>
+<rect x="640" y="83" width="260" height="120" rx="12" fill="#fff" stroke="#d3e0e3"/><text x="770" y="122" fill="#27485b">OMNI TRAVEL</text><text x="770" y="151" font-size="12" font-weight="normal" fill="#667b86">Destination referral · optional</text>
+<rect x="940" y="83" width="220" height="120" rx="12" fill="#e9eef1" stroke="#c8d8de"/><text x="1050" y="122" fill="#27485b">ONYX OS</text><text x="1050" y="151" font-size="12" font-weight="normal" fill="#667b86">Private CRM / billing</text></g>
+<path d="M300 145H340M600 145H640M900 145H940" stroke="#b68b53" stroke-width="4" stroke-linecap="round"/>
+<g fill="#b68b53"><path d="M332 138L340 145 332 152M632 138L640 145 632 152M932 138L940 145 932 152"/></g>
+<text x="40" y="237" font-family="Arial" font-size="12" fill="#627884">Schematic integration illustration · premium KATASTR-ONLINE.cz source and customer data are NOT included.</text>
+</svg>
