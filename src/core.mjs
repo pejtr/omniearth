@@ -53,3 +53,22 @@ export function publicObservation(event){
  point(event);if(!Number.isFinite(Date.parse(event.observedAt)))throw Error('INVALID_TIMESTAMP');
  return {...event,description:String(event.description||'').slice(0,180)};
 }
+
+/**
+ * Public handoff to a separate PREMIUM cadastral service.
+ * Only shares the point explicitly selected by the user after a click.
+ * Does not query or expose KATASTR-ONLINE.cz source, customer data, or reports.
+ * Bounding box is approximate; it does not certify a Czech cadastral parcel.
+ */
+export function premiumKatastrLink(p,zoom=15){
+ point(p);
+ if(p.lat<48.45||p.lat>51.1||p.lng<12.05||p.lng>18.9)return null;
+ const url=new URL('https://www.katastr-online.cz/mapa');
+ url.searchParams.set('lat',p.lat.toFixed(5));
+ url.searchParams.set('lng',p.lng.toFixed(5));
+ url.searchParams.set('z',String(Number.isFinite(zoom)?Math.min(19,Math.max(8,Math.round(zoom))):15));
+ url.searchParams.set('utm_source','omniearth');
+ url.searchParams.set('utm_medium','referral');
+ url.searchParams.set('utm_campaign','katastr-map-discovery');
+ return url.toString();
+}
