@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f7f9fa">
+  <meta name="description" content="OMNIEARTH+ — open-source mapa a ukázka prostorové inteligence. Syntetická data, navigace přes Google Maps a Mapy.com, soukromá GPS.">
+  <title>OMNIEARTH+ — Open Spatial Intelligence</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/logo.svg">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoR7u0yQv5B2iY=" crossorigin="">
+  <link rel="stylesheet" href="./src/styles.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+  <script type="module" src="./src/app.mjs"></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="header">
+      <a class="logo" href="./" aria-label="OMNIEARTH+ domů"><span class="sigil">◉</span><span>OMNI<span class="lighter">EARTH</span><b class="plus">+</b><small>OPEN SPATIAL INTELLIGENCE</small></span></a>
+      <div class="header-right"><span class="status-pill">● OPEN SOURCE · v0.3 DEMO</span><a href="https://github.com/pejtr/omniearth" target="_blank" rel="noopener noreferrer" class="gh-link">GitHub ↗</a></div>
+    </header>
+    <section class="intro">
+      <div><div class="eyebrow">SOURCE → FIELD → INTERACTION</div><h1>One planet. <em>Infinite perspectives.</em></h1><p>Otevřená mapa pro objevování míst, bezpečnou navigaci a budoucí ověřené informace o dopravě. Žádné skryté sledování, žádné vymyšlené živé zprávy.</p></div>
+      <div class="intro-aside"><strong>0</strong><span>live fleet feeds</span><strong>MIT</strong><span>open source</span></div>
+    </section>
+    <main class="grid">
+      <section class="map-panel" aria-label="Interaktivní mapa">
+        <div class="panel-heading"><div><span class="eyebrow">01 / MAP INTELLIGENCE</span><h2>Explore the Earth</h2></div><div class="badge">● SIMULACE, NE LIVE</div></div>
+        <div class="toolbar">
+          <label for="city">Lokalita</label><select id="city"><option value="pardubice">Pardubice</option><option value="prague">Praha</option><option value="paris">Paříž</option></select>
+          <button id="toggle-demo" type="button" aria-pressed="true">◈ Demo události</button>
+          <button id="reset" type="button">↺ Reset mapy</button>
+          <span id="map-status" role="status">Načítám mapu…</span>
+        </div>
+        <div class="map-wrap">
+          <div id="map" role="region" aria-label="Mapa OpenStreetMap"></div>
+          <div id="map-error" hidden class="map-error">Mapový podklad není dostupný. Externí mapové odkazy níže fungují i bez něj.</div>
+          <div class="map-watermark">◉ OMNIEARTH+ <small>OPEN MAP / DEMO POINTS</small></div>
+          <div class="map-legend"><span>● Syntetické události</span><span>● Vybraný bod</span><span>● Volitelná GPS</span></div>
+        </div>
+        <div class="map-bottom"><div><small>DEMOVERZE</small><strong id="city-description">Pardubice — syntetická pozorování</strong></div><div><button id="animate" type="button" aria-pressed="false" class="primary">▶ Přehrát demo</button><button id="pause" type="button">■ Zastavit</button></div></div>
+      </section>
+      <aside class="sidebar" aria-label="Vyhledávání a navigace">
+        <span class="eyebrow">02 / CONNECTED MAP EXPERIENCE</span>
+        <h2>Explore more.<br><em>Discover better.</em></h2>
+        <p>Všechny podklady mají vlastní zdroj a licenční podmínky. Pro reálnou navigaci otevřeme oficiální aplikaci.</p>
+        <div class="source"><span>◉</span><div><strong>ONYX MAPS</strong><small>OpenStreetMap + výběr místa</small></div><b>DEMO</b></div>
+        <div class="source"><span>↗</span><div><strong>GOOGLE MAPS · MAPY.COM</strong><small>Externí plánování tras</small></div><b>LINK</b></div>
+        <div class="source"><span>✦</span><div><strong>OMNI TRAVEL</strong><small>Objevování destinací</small></div><b>LINK</b></div>
+        <div class="source muted"><span>◇</span><div><strong>TRAFFIC INSIGHTS</strong><small>Budoucí licencovaná data</small></div><b>PLÁN</b></div>
+        <div class="separator"></div>
+        <span class="eyebrow">03 / FIND A REAL PLACE</span>
+        <form id="place-form"><label for="place-query">Co hledáš v daném městě?</label><input id="place-query" type="search" minlength="2" maxlength="160" required placeholder="Například čajovna v Paříži"><button class="primary" type="submit">Vyhledat v Mapy.com ↗</button></form>
+        <a id="google-search" class="thin" href="https://www.google.com/maps/" target="_blank" rel="noopener noreferrer" aria-disabled="true">Nebo Google Maps ↗</a>
+        <p id="search-message" role="status" class="note">Výsledky poskytuje mapová služba; OMNIEARTH+ si nevymýšlí podniky.</p>
+        <div class="separator"></div>
+        <span class="eyebrow">04 / LIVE DEVICE GPS</span>
+        <div class="actions"><button id="gps" type="button">◎ Zapnout GPS</button><button id="gps-center" disabled type="button">⌖ Moje poloha</button></div>
+        <p id="gps-message" role="status" class="note">Vypnuto. Poloha se neodesílá na server.</p>
+        <label class="field" for="mode">Způsob dopravy</label><select id="mode"><option value="walking">🚶 Pěšky</option><option value="driving">🚗 Autem</option><option value="cycling">🚲 Na kole</option><option value="transit">🚇 MHD</option></select>
+        <p id="distance" class="note">Vzdálenost od vlastní polohy je dostupná po povolení GPS.</p>
+        <div class="actions"><a id="route-google" href="https://www.google.com/maps/" target="_blank" rel="noopener noreferrer">Google trasa ↗</a><a id="route-mapy" href="https://mapy.com/" target="_blank" rel="noopener noreferrer">Mapy.com trasa ↗</a></div>
+        <div class="separator"></div>
+        <span class="eyebrow">05 / SELECTED LOCATION</span>
+        <div class="selected"><strong id="point-name">Pardubice — centrum</strong><code id="point-coords">50.03830, 15.77920</code></div>
+        <div class="actions"><a id="link-google" href="https://www.google.com/maps/" target="_blank" rel="noopener noreferrer">Google Maps ↗</a><a id="link-mapy" href="https://mapy.com/" target="_blank" rel="noopener noreferrer">Mapy.com ↗</a></div>
+        <a class="partner" id="link-travel" target="_blank" rel="noopener noreferrer" href="https://www.lastminutedovolene.cz/">✈ OMNI TRAVEL · Destinace ↗</a>
+        <a class="partner" id="link-partner" target="_blank" rel="noopener noreferrer" href="https://www.optimateo.com/">✦ OPTIMATEO · Pro partnery ↗</a>
+        <p class="note">KATASTR-ONLINE.cz je samostatný neveřejný prémiový produkt. Jeho zdrojový kód a klientská data zde nejsou.</p>
+      </aside>
+    </main>
+    <footer>© 2026 OMNIEARTH+ · MIT software · DEMO DATA ONLY <span>Žádná reálná poloha kurýra, policejního vozidla ani aktuální dopravní událost zde není.</span></footer>
+  </div>
+</body>
+</html>
