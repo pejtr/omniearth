@@ -3,6 +3,12 @@
 
 ![OMNIEARTH+ cover](assets/hero.svg)
 
+**Current running v0.3 desktop preview (real Chrome screenshot):**
+
+![Actual OMNIEARTH+ app preview](assets/omniearth-preview.png)
+
+*Real screenshot of the local demo; all map events are synthetic, and the map background is OpenStreetMap.*
+
 [![MIT](https://img.shields.io/badge/license-MIT-3a6758)](LICENSE) ![Status](https://img.shields.io/badge/status-interactive%20demo-b08b57) ![No live feeds](https://img.shields.io/badge/live%20fleet-disabled-778899)
 
 **An open-source spatial viewer for map discovery, privacy-conscious navigation, and future verified public road observations.**
