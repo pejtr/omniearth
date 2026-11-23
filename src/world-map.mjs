@@ -49,7 +49,7 @@ function updateMarkers(){
  markerMeshes=[];
  const THREE=threeModule;
  for(const point of region()){
-  const geometry=new THREE.SphereGeometry(point.id===state.selected?.033:.025,12,12);
+  const geometry=new THREE.SphereGeometry(point.id === state.selected ? 0.033 : 0.025,12,12);
   const material=new THREE.MeshBasicMaterial({color:projectColor(point)});
   const mesh=new THREE.Mesh(geometry,material);
   mesh.position.set(...geoToCartesian(point.lat,point.lng,1.032));
