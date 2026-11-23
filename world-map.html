@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07191b">
+  <meta name="description" content="OMNI WORLD MAP — 3D atlas veřejných čajových regionů, destinací a projektových vrstev. Regionální demonstrační data bez ověřených farem.">
+  <title>OMNI WORLD MAP · TEAHUB GLOBAL</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/logo.svg">
+  <link rel="stylesheet" href="./src/world-map.css">
+  <script type="module" src="./src/world-map.mjs"></script>
+</head>
+<body>
+<main id="omni-world">
+  <header class="topline">
+    <a class="brand" href="./" aria-label="OMNIEARTH+ úvodní stránka"><span class="logo-mark">◎</span><span>OMNI<span class="light">WORLD</span><small>MAP · OMNIEARTH+</small></span></a>
+    <div class="top-actions"><span class="chip">PUBLIC REGION PROTOTYPE</span><a href="./" class="plain-link">2D MAP ↗</a></div>
+  </header>
+  <section class="intro">
+    <div><p class="eyebrow">OMNIEARTH+ SPATIAL ENGINE / TEAHUB GENESIS</p><h1>One world.<br><em>Many possibilities.</em></h1><p class="subheading">Čajové regiony, cestovatelské destinace a prostorové vrstvy našich projektů — na jedné interaktivní planetě.</p></div>
+    <aside class="intro-meta"><span>Projektové vrstvy</span><strong>03</strong><span>Ověření producenti</span><strong>0</strong><small>Body označují orientační středy regionů, nikoliv ověřené farmy ani partnerství.</small></aside>
+  </section>
+  <section class="workspace" aria-label="3D mapa a katalog geografických bodů">
+    <div class="planet-card">
+      <div class="map-top"><span>01 / INTERACTIVE WORLD</span><span class="live-label">● REGIONÁLNÍ DEMO DATA</span></div>
+      <div class="planet-wrap">
+        <div id="globe" role="img" aria-label="Trojrozměrný globus s regionálními body Japonska, Tchaj-wanu, Evropy a dalších destinací"><div class="fallback-text" id="loading">Inicializuji 3D glóbus…</div></div>
+        <div class="planet-hud">
+          <span id="globe-status" role="status">Načítám vizualizaci…</span>
+          <div class="map-controls">
+            <button type="button" id="zoom-in" aria-label="Přiblížit globus">＋</button>
+            <button type="button" id="zoom-out" aria-label="Oddálit globus">－</button>
+            <button type="button" id="toggle-motion" aria-pressed="true">⏸ Rotace</button>
+            <button type="button" id="home">⌖ Asie</button>
+          </div>
+        </div>
+      </div>
+      <p class="map-disclaimer">Veřejné geografické regiony; žádné zákaznické polohy, transakce, sklizně ani privátní CRM. Klikni na bod nebo jej vyber v seznamu.</p>
+    </div>
+    <aside class="atlas-panel">
+      <p class="eyebrow">02 / DATA LAYERS</p><h2>Explore the atlas</h2>
+      <p class="small-desc">Jedna mapová komponenta, různé projekty. Vyber vrstvu a prohlédni geografické body.</p>
+      <div class="layer-buttons" id="layers" role="group" aria-label="Projektové vrstvy">
+        <button type="button" data-project="teahub" aria-pressed="true"><span class="layer-dot tea"></span>TEAHUB <span class="count">5</span></button>
+        <button type="button" data-project="travel" aria-pressed="false"><span class="layer-dot travel"></span>TRAVEL <span class="count">2</span></button>
+        <button type="button" data-project="places" aria-pressed="false"><span class="layer-dot places"></span>PLACES <span class="count">1</span></button>
+      </div>
+      <label for="search">NAJÍT MÍSTO</label>
+      <input id="search" type="search" maxlength="100" placeholder="Japonsko, Uji, Praha…">
+      <div class="results-heading"><span>VEŘEJNÉ REFERENČNÍ BODY</span><span id="result-count">5 lokalit</span></div>
+      <div id="points" class="point-list" aria-label="Dostupné geografické body"></div>
+      <div id="selection" class="selection" aria-live="polite"><span class="eyebrow">VYBRANÁ LOKALITA</span><h3>Uji · Kyoto</h3><p>Tradiční čajový region.</p></div>
+      <a id="maps-link" href="https://www.google.com/maps/" target="_blank" rel="noopener noreferrer" class="action-link">Otevřít na Google Maps ↗</a>
+    </aside>
+  </section>
+  <section class="bottomline"><div><span class="eyebrow">BUILT FOR REUSE</span><h2>One spatial engine. Multiple businesses.</h2></div><p>TEAHUB · OMNI TRAVEL · OMNIEARTH+<br>Projektové vrstvy jsou izolované. Zobrazení farem nebo nabídky bude povoleno až po ověření zdrojů.</p></section>
+  <footer>© 2026 OMNIEARTH+ · OMNI WORLD MAP v0.1 · INTERACTIVE PROTOTYPE <span>Bez potvrzených partnerů, prodejů nebo živých geodat.</span></footer>
+</main>
+</body></html>
